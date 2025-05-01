@@ -1,0 +1,21 @@
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0;
+  padding-bottom: 0;
+}
+
+.button {
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 7px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+}
