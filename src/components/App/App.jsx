@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import s from './App.module.css';
 import ContactList from '../ContactList/ContactList';
+import SearchBox from '../SearchBox/SearchBox';
 
 const App = () => {
   const [contacts, setContacts] = useState([
@@ -9,6 +11,15 @@ const App = () => {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ]);
 
+  const [searchQuery, setSewarchQuery] = useState('');
+
+  const handleSearchChange = event => {
+    setSewarchQuery(event.target.value);
+  };
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const deleteUser = id => {
     setContacts(prevContacts =>
       prevContacts.filter(contact => contact.id !== id)
@@ -16,9 +27,13 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className={s.container}>
       <h1>Phonebook</h1>
-      <ContactList contacts={contacts} deleteUser={deleteUser} />
+      <SearchBox
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+      />
+      <ContactList contacts={filteredContacts} deleteUser={deleteUser} />
     </div>
   );
 };
