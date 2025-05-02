@@ -1,7 +1,7 @@
 import { FaUserCircle, FaPhoneAlt } from 'react-icons/fa';
 import s from './Contact.module.css';
 
-const Contact = ({ contact: { name, number, id }, deleteUser }) => {
+const Contact = ({ contact: { name, number, id }, onDeleteContact }) => {
   return (
     <>
       <div className={s.inner}>
@@ -12,7 +12,11 @@ const Contact = ({ contact: { name, number, id }, deleteUser }) => {
           <FaPhoneAlt /> {number}
         </a>
       </div>
-      <button className={s.button} type="button" onClick={() => deleteUser(id)}>
+      <button
+        className={s.button}
+        type="button"
+        onClick={() => onDeleteContact(id)}
+      >
         Delete
       </button>
     </>

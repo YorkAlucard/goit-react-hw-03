@@ -2,6 +2,7 @@ import { useState } from 'react';
 import s from './App.module.css';
 import ContactList from '../ContactList/ContactList';
 import SearchBox from '../SearchBox/SearchBox';
+import ContactForm from '../ContactForm/ContactForm';
 
 const App = () => {
   const [contacts, setContacts] = useState([
@@ -16,24 +17,33 @@ const App = () => {
   const handleSearchChange = event => {
     setSewarchQuery(event.target.value);
   };
+
+  const handleAddContact = newContact => {
+    setContacts(prevContacts => [...prevContacts, newContact]);
+  };
+
+  const handleDeleteContact = contactId => {
+    setContacts(prevContacts =>
+      prevContacts.filter(contact => contact.id !== contactId)
+    );
+  };
+
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const deleteUser = id => {
-    setContacts(prevContacts =>
-      prevContacts.filter(contact => contact.id !== id)
-    );
-  };
-
   return (
     <div className={s.container}>
       <h1>Phonebook</h1>
+      <ContactForm onAddContact={handleAddContact} />
       <SearchBox
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
       />
-      <ContactList contacts={filteredContacts} deleteUser={deleteUser} />
+      <ContactList
+        contacts={filteredContacts}
+        onDeleteContact={handleDeleteContact}
+      />
     </div>
   );
 };
