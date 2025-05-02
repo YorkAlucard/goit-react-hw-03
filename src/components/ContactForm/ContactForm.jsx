@@ -33,7 +33,7 @@ const ContactForm = ({ onAddContact }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {() => (
+      {({ isValid }) => (
         <Form className={s.form}>
           <div className={s.fieldContainer}>
             <label>Ім'я:</label>
@@ -47,7 +47,11 @@ const ContactForm = ({ onAddContact }) => {
             <ErrorMessage name="number" component="div" className={s.error} />
           </div>
 
-          <button type="submit" className={s.button}>
+          <button
+            type="submit"
+            className={isValid ? `${s.button} ${s.active}` : s.button}
+            disabled={!isValid}
+          >
             Додати контакт
           </button>
         </Form>
